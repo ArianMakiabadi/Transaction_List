@@ -1,0 +1,23 @@
+@font-face {
+  font-family: Dongle;
+  src: url("/assets/fonts/Dongle-Light.ttf") format("tff");
+  font-weight: 300;
+  font-style: light;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Dongle;
+  src: url("/assets/fonts/Dongle-Regular.ttf") format("tff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Dongle;
+  src: url("/assets/fonts/Dongle-Bold.ttf") format("tff");
+  font-weight: 700;
+  font-style: bold;
+  font-display: swap;
+}
