@@ -2,43 +2,43 @@
   "transactions": [
     {
       "id": 1,
-      "type": "Credit Increase",
-      "price": 1000000,
+      "type": "Deposit",
+      "price": 10000,
       "refId": 123270311,
       "date": 1713977315961
     },
     {
       "id": 2,
-      "type": "Credit Increase",
-      "price": 500000,
+      "type": "Deposit",
+      "price": 5000,
       "refId": 123270405,
       "date": 1672532200000
     },
     {
       "id": 3,
       "type": "Withdrawal",
-      "price": 200000,
+      "price": 2000,
       "refId": 1458985369,
       "date": 1682886100000
     },
     {
       "id": 4,
-      "type": "Credit Increase",
-      "price": 450000,
+      "type": "Deposit",
+      "price": 4500,
       "refId": 987654321,
       "date": 1711937000000
     },
     {
       "id": 5,
       "type": "Withdrawal",
-      "price": 770000,
+      "price": 7700,
       "refId": 741852963,
       "date": 1711917089876
     },
     {
       "id": 6,
-      "type": "Credit Increase",
-      "price": 590000,
+      "type": "Deposit",
+      "price": 5900,
       "refId": 987654321,
       "date": 1640997292340
     }
