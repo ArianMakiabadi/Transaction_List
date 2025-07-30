@@ -2,6 +2,12 @@ const fetchBtn = document.getElementById("fetchBtn");
 const btnContainer = document.getElementById("btnContainer");
 const transactions = document.getElementById("transactions");
 const transactionsTable = document.getElementById("transactionsTable");
+
+const allTransactions = document.getElementById("allTransactions");
+const sumDeposits = document.getElementById("sumDeposits");
+const sumWithdrawal = document.getElementById("sumWithdrawal");
+const total = document.getElementById("total");
+
 let data = [];
 
 function getTransactions() {
@@ -11,7 +17,23 @@ function getTransactions() {
     .catch((err) => console.log(err));
 }
 
-function updateDOM(data) {
+function updateSummary(data) {
+  const transactionCount = data.length;
+  const totalDeposits = data
+    .filter((item) => item.type === "Deposit")
+    .reduce((sum, item) => (sum += item.price), 0);
+  const totalWithdrawals = data
+    .filter((item) => item.type === "Withdrawal")
+    .reduce((sum, item) => (sum += item.price), 0);
+  const balance = totalDeposits - totalWithdrawals;
+
+  allTransactions.innerText = transactionCount;
+  sumDeposits.innerText = totalDeposits + "$";
+  sumWithdrawal.innerText = totalWithdrawals + "$";
+  total.innerHTML = balance + "$";
+}
+
+function updateTable(data) {
   data.forEach((item) => {
     const transactionType = item.type;
     const transactionColor =
@@ -60,7 +82,8 @@ function updateDOM(data) {
 fetchBtn.addEventListener("click", async () => {
   data = await getTransactions();
   console.log(data);
-  updateDOM(data);
+  updateSummary(data);
+  updateTable(data);
   btnContainer.classList.add("hidden");
   transactions.classList.remove("hidden");
 });

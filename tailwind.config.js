@@ -2,6 +2,10 @@
 export default {
   content: ["./public/**/*.html"],
   safelist: [
+    // Table Properties
+    "h-10",
+    "text-center",
+
     // Red styles
     "ring-red-300",
     "bg-red-200",
@@ -13,6 +17,18 @@ export default {
     "bg-green-200",
     "text-green-500",
     "text-green-600",
+
+    // purple styles
+    "bg-violet-500 ",
+    "px-3",
+    "py-0.5",
+    "text-white",
+
+    // Transitions
+    "transform",
+    "transition-transform",
+    "duration-300",
+    "rotate-180",
   ],
   theme: {
     extend: {
