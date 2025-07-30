@@ -8,6 +8,8 @@ const sumDeposits = document.getElementById("sumDeposits");
 const sumWithdrawal = document.getElementById("sumWithdrawal");
 const total = document.getElementById("total");
 
+const amount = document.getElementById("amount");
+
 let data = [];
 
 function getTransactions() {
@@ -15,6 +17,24 @@ function getTransactions() {
     .get("http://localhost:3000/transactions")
     .then((result) => result.data)
     .catch((err) => console.log(err));
+}
+
+function sortTransactions(key = "price", direction = "asc") {
+  const allowedKeys = ["price", "date"];
+  const allowedDirections = ["asc", "desc"];
+
+  if (!allowedKeys.includes(key) || !allowedDirections.includes(direction)) {
+    console.error("Invalid sort parameters");
+    return Promise.resolve([]);
+  }
+
+  return axios
+    .get(`http://localhost:3000/transactions?_sort=${key}&_order=${direction}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.error("Error fetching transactions:", err);
+      return [];
+    });
 }
 
 function updateSummary(data) {
@@ -34,6 +54,8 @@ function updateSummary(data) {
 }
 
 function updateTable(data) {
+  transactionsTable.innerHTML = "";
+
   data.forEach((item) => {
     const transactionType = item.type;
     const transactionColor =
@@ -86,4 +108,20 @@ fetchBtn.addEventListener("click", async () => {
   updateTable(data);
   btnContainer.classList.add("hidden");
   transactions.classList.remove("hidden");
+});
+
+amount.addEventListener("click", async () => {
+  const icon = amount.querySelector("span");
+  // Rotating the chevron
+  icon.classList.add("transform", "transition-transform", "duration-300");
+  icon.classList.toggle("rotate-180");
+
+  // Sorting
+  const direction = icon.classList.contains("rotate-180") ? "asc" : "desc";
+  try {
+    data = await sortTransactions("price", direction);
+    updateTable(data);
+  } catch (err) {
+    console.error("Failed to sort transactions:", err);
+  }
 });
