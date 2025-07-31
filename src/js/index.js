@@ -119,6 +119,8 @@ function updateTable(data) {
 }
 
 //! Evenet Listeners
+document.addEventListener("DOMContentLoaded", () => (searchInput.value = ""));
+
 fetchBtn.addEventListener("click", async () => {
   data = await getTransactions();
   console.log(data);
