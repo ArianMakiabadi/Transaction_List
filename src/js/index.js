@@ -1,3 +1,5 @@
+const url = "http://localhost:3000/transactions";
+
 //! DOM Elements
 const fetchBtn = document.getElementById("fetchBtn");
 const btnContainer = document.getElementById("btnContainer");
@@ -9,17 +11,18 @@ const sumDeposits = document.getElementById("sumDeposits");
 const sumWithdrawal = document.getElementById("sumWithdrawal");
 const total = document.getElementById("total");
 
-const amount = document.getElementById("amount");
+const amountHeader = document.getElementById("amountHeader");
 const date = document.getElementById("date");
 
 const searchInput = document.getElementById("search");
+const submissionForm = document.getElementById("submissionForm");
 
 let data = [];
 
 //! Back-End API calls
 function getTransactions() {
   return axios
-    .get("http://localhost:3000/transactions")
+    .get(url)
     .then((result) => result.data)
     .catch((err) => console.log(err));
 }
@@ -35,7 +38,7 @@ function sortTransactions(key = "price", direction = "asc") {
 
   return axios
     .get(
-      `http://localhost:3000/transactions?_sort=${key}&_order=${direction}&refId_like=${searchInput.value}`
+      `${url}?_sort=${key}&_order=${direction}&refId_like=${searchInput.value}`
     )
     .then((res) => res.data)
     .catch((err) => {
@@ -45,12 +48,10 @@ function sortTransactions(key = "price", direction = "asc") {
 }
 
 function searchFunction(value) {
-  return axios
-    .get(`http://localhost:3000/transactions?refId_like=${value}`)
-    .catch((err) => {
-      console.error("Search Failed!", err);
-      return [];
-    });
+  return axios.get(`${url}?refId_like=${value}`).catch((err) => {
+    console.error("Search Failed!", err);
+    return [];
+  });
 }
 
 //! UI Update
@@ -123,15 +124,14 @@ document.addEventListener("DOMContentLoaded", () => (searchInput.value = ""));
 
 fetchBtn.addEventListener("click", async () => {
   data = await getTransactions();
-  console.log(data);
   updateSummary(data);
   updateTable(data);
   btnContainer.classList.add("hidden");
   transactions.classList.remove("hidden");
 });
 
-amount.addEventListener("click", async () => {
-  const icon = amount.querySelector("span");
+amountHeader.addEventListener("click", async () => {
+  const icon = amountHeader.querySelector("span");
   // Rotating the chevron
   icon.classList.add("transform", "transition-transform", "duration-300");
   icon.classList.toggle("rotate-180");
@@ -165,4 +165,26 @@ date.addEventListener("click", async () => {
 searchInput.addEventListener("input", async () => {
   searchResults = (await searchFunction(searchInput.value)).data;
   updateTable(searchResults);
+});
+
+submissionForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const amount = Number(formData.get("amount"));
+  const type = formData.get("type");
+
+  // posting the transaction to the database
+  axios
+    .post(url, {
+      refId: Math.floor(100_000_000 + Math.random() * 900_000_000), // random 9 digit ID
+      price: amount,
+      type: type,
+      date: Date.now(),
+    })
+    .then(async () => {
+      data = await getTransactions();
+      updateSummary(data);
+      updateTable(data);
+    });
+  submissionForm.reset();
 });
