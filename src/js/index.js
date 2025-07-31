@@ -9,6 +9,7 @@ const sumWithdrawal = document.getElementById("sumWithdrawal");
 const total = document.getElementById("total");
 
 const amount = document.getElementById("amount");
+const date = document.getElementById("date");
 
 let data = [];
 
@@ -120,6 +121,22 @@ amount.addEventListener("click", async () => {
   const direction = icon.classList.contains("rotate-180") ? "asc" : "desc";
   try {
     data = await sortTransactions("price", direction);
+    updateTable(data);
+  } catch (err) {
+    console.error("Failed to sort transactions:", err);
+  }
+});
+
+date.addEventListener("click", async () => {
+  const icon = date.querySelector("span");
+  // Rotating the chevron
+  icon.classList.add("transform", "transition-transform", "duration-300");
+  icon.classList.toggle("rotate-180");
+
+  // Sorting
+  const direction = icon.classList.contains("rotate-180") ? "asc" : "desc";
+  try {
+    data = await sortTransactions("date", direction);
     updateTable(data);
   } catch (err) {
     console.error("Failed to sort transactions:", err);
