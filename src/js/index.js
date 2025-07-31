@@ -11,7 +11,11 @@ const total = document.getElementById("total");
 const amount = document.getElementById("amount");
 const date = document.getElementById("date");
 
+const search = document.getElementById("search");
+
 let data = [];
+
+// Back-End API calls
 
 function getTransactions() {
   return axios
@@ -34,6 +38,15 @@ function sortTransactions(key = "price", direction = "asc") {
     .then((res) => res.data)
     .catch((err) => {
       console.error("Error fetching transactions:", err);
+      return [];
+    });
+}
+
+function searchFunction(value) {
+  return axios
+    .get(`http://localhost:3000/transactions?refId_like=${value}`)
+    .catch((err) => {
+      console.error("Search Failed!", err);
       return [];
     });
 }
@@ -141,4 +154,10 @@ date.addEventListener("click", async () => {
   } catch (err) {
     console.error("Failed to sort transactions:", err);
   }
+});
+
+search.addEventListener("input", async () => {
+  searchResault = (await searchFunction(search.value)).data;
+  updateTable(searchResault);
+  console.log(searchResault);
 });
