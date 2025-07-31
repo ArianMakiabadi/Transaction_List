@@ -1,3 +1,4 @@
+//! DOM Elements
 const fetchBtn = document.getElementById("fetchBtn");
 const btnContainer = document.getElementById("btnContainer");
 const transactions = document.getElementById("transactions");
@@ -11,12 +12,11 @@ const total = document.getElementById("total");
 const amount = document.getElementById("amount");
 const date = document.getElementById("date");
 
-const search = document.getElementById("search");
+const searchInput = document.getElementById("search");
 
 let data = [];
 
-// Back-End API calls
-
+//! Back-End API calls
 function getTransactions() {
   return axios
     .get("http://localhost:3000/transactions")
@@ -34,7 +34,9 @@ function sortTransactions(key = "price", direction = "asc") {
   }
 
   return axios
-    .get(`http://localhost:3000/transactions?_sort=${key}&_order=${direction}`)
+    .get(
+      `http://localhost:3000/transactions?_sort=${key}&_order=${direction}&refId_like=${searchInput.value}`
+    )
     .then((res) => res.data)
     .catch((err) => {
       console.error("Error fetching transactions:", err);
@@ -51,6 +53,7 @@ function searchFunction(value) {
     });
 }
 
+//! UI Update
 function updateSummary(data) {
   const transactionCount = data.length;
   const totalDeposits = data
@@ -115,6 +118,7 @@ function updateTable(data) {
   });
 }
 
+//! Evenet Listeners
 fetchBtn.addEventListener("click", async () => {
   data = await getTransactions();
   console.log(data);
@@ -156,8 +160,7 @@ date.addEventListener("click", async () => {
   }
 });
 
-search.addEventListener("input", async () => {
-  searchResault = (await searchFunction(search.value)).data;
-  updateTable(searchResault);
-  console.log(searchResault);
+searchInput.addEventListener("input", async () => {
+  searchResults = (await searchFunction(searchInput.value)).data;
+  updateTable(searchResults);
 });
