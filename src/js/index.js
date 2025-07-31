@@ -66,9 +66,9 @@ function updateSummary(data) {
   const balance = totalDeposits - totalWithdrawals;
 
   allTransactions.innerText = transactionCount;
-  sumDeposits.innerText = totalDeposits + "$";
-  sumWithdrawal.innerText = totalWithdrawals + "$";
-  total.innerHTML = balance + "$";
+  sumDeposits.innerText = "$" + totalDeposits;
+  sumWithdrawal.innerText = "$" + totalWithdrawals;
+  total.innerHTML = "$" + balance;
 }
 
 function updateTable(data) {
@@ -83,7 +83,7 @@ function updateTable(data) {
     const amountColor =
       transactionType === "Withdrawal" ? "text-red-500" : "text-green-500";
     const amount =
-      transactionType === "Withdrawal" ? `-${item.price}$` : `${item.price}$`;
+      transactionType === "Withdrawal" ? `-$${item.price}` : `$${item.price}`;
     const id = item.refId;
     const date = new Date(item.date);
     const year = date.getFullYear();
