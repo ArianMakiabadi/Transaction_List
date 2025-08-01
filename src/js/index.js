@@ -96,25 +96,27 @@ function updateTable(data) {
     ).padStart(2, "0")}`;
 
     transactionsTable.innerHTML += `<tr class="text-center h-10">
-              <td>${transactionsTable.rows.length + 1}</td>
-              <td>
+              <td class="text-xs md:text-sm text-nowrap">${
+                transactionsTable.rows.length + 1
+              }</td>
+              <td class="text-xs md:text-sm text-nowrap hidden md:table-cell">
                 <span
                   class="ring-1 ${transactionColor} rounded-xl px-3 py-0.5"
                 >
                   ${transactionType}
                 </span>
               </td>
-              <td class="${amountColor}">${amount}</td>
-              <td>
+              <td class="${amountColor} text-xs md:text-sm text-nowrap">${amount}</td>
+              <td class="text-xs md:text-sm text-nowrap">
                 <span
                   class="ring-1 bg-violet-500 rounded-xl px-3 py-0.5 text-white"
                 >
                   ${id}
                 </span>
               </td>
-              <td>${dateStr}</td>
-              <td>${weekday}</td>
-              <td>${time}</td>
+              <td class="text-xs md:text-sm text-nowrap">${dateStr}</td>
+              <td class="text-xs md:text-sm text-nowrap hidden md:table-cell">${weekday}</td>
+              <td class="text-xs md:text-sm text-nowrap">${time}</td>
             </tr>`;
   });
 }

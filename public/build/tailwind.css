@@ -1133,6 +1133,10 @@ input[type="number"] {
 }
 
 @media (min-width: 768px) {
+  .md\:table-cell {
+    display: table-cell;
+  }
+
   .md\:size-4 {
     width: 1rem;
     height: 1rem;
@@ -1141,6 +1145,11 @@ input[type="number"] {
   .md\:size-6 {
     width: 1.5rem;
     height: 1.5rem;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   .md\:text-lg {

@@ -266,11 +266,13 @@
         <!--------- Transaction Table Start  ---------->
         <table class="w-full ring-1 rounded-lg ring-gray-200">
           <thead class="bg-gray-200">
-            <th>No.</th>
-            <th>Transaction type</th>
+            <th class="text-xs md:text-base text-nowrap">No.</th>
+            <th class="text-xs md:text-base text-nowrap hidden md:table-cell">
+              Transaction type
+            </th>
             <th
               id="amountHeader"
-              class="flex items-center justify-center cursor-pointer"
+              class="flex items-center justify-center cursor-pointer text-xs md:text-base text-nowrap"
             >
               <span
                 ><svg
@@ -288,10 +290,10 @@
               </span>
               <p>Amount</p>
             </th>
-            <th>Transaction ID</th>
+            <th class="text-xs md:text-base text-nowrap">Transaction ID</th>
             <th
               id="date"
-              class="flex items-center justify-center cursor-pointer"
+              class="flex items-center justify-center cursor-pointer text-xs md:text-base text-nowrap"
             >
               <span
                 ><svg
@@ -309,8 +311,10 @@
               </span>
               <p>Date</p>
             </th>
-            <th>Day</th>
-            <th>Time</th>
+            <th class="text-xs md:text-base text-nowrap hidden md:table-cell">
+              Day
+            </th>
+            <th class="text-xs md:text-base text-nowrap">Time</th>
           </thead>
           <tbody id="transactionsTable">
             <!-- table rows will be here -->
