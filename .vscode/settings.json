@@ -1,0 +1,4 @@
+{
+  // Tell VS Code Live Server NOT to reload when db.json changes
+  "liveServer.settings.ignoreFiles": ["**/data/db.json"]
+}
